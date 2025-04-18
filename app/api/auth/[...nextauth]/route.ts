@@ -2,7 +2,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { FirestoreAdapter } from "@auth/firebase-adapter";
-import firestore from "../../../lib/firestore";
+import firestore from "@/app/lib/firestore";
 
 const handler = NextAuth({
   adapter: FirestoreAdapter(firestore),
@@ -13,7 +13,7 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  // callbacks, pages, etc (se precisar)
+  // Adicione outros callbacks e configurações, se necessário
 });
 
-export { handler as GET, handler as POST };
+export { handler };
