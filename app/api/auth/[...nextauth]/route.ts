@@ -4,7 +4,8 @@ import GoogleProvider from "next-auth/providers/google";
 import { FirestoreAdapter } from "@auth/firebase-adapter";
 import firestore from "@/app/lib/firestore";
 
-const handler = NextAuth({
+// Configuração do NextAuth
+const authOptions = {
   adapter: FirestoreAdapter(firestore),
   providers: [
     GoogleProvider({
@@ -13,7 +14,10 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  // Adicione outros callbacks e configurações, se necessário
-});
+  // Outros callbacks e configurações
+};
 
-export { handler };
+// NextAuth aceita um único argumento, que é a configuração
+export const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
