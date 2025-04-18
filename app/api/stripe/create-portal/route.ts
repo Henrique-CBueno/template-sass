@@ -21,8 +21,10 @@ export async function POST(req: NextRequest) {
             return NextResponse.json("User not found", { status: 404 })
         }
 
-        const customerId = userDoc.data()?.stripeCustumerId
-        console.log("Stripe customer ID:", customerId)
+        const userData = userDoc.data()
+
+        const customerId = userData?.stripeCustomerId
+        
 
     if (!customerId) {
          return NextResponse.json("Customer ID not found", { status: 404 })
