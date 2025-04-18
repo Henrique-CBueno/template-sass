@@ -52,7 +52,7 @@ import { NextRequest, NextResponse } from 'next/server';
   
       return NextResponse.json({ message: 'Webhook received' }, { status: 200 });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
   }

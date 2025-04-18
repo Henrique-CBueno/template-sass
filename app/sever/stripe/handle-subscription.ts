@@ -12,7 +12,7 @@ import { db } from "@/app/lib/firebase";
      const userId = metadata?.userId;
  
      if (!userId) {
-       console.error('User ID not found');
+       console.log('User ID not found');
        return;
      }
  

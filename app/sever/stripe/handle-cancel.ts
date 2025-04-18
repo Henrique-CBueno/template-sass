@@ -11,7 +11,7 @@ import { db } from "@/app/lib/firebase";
    const userRef = await db.collection('users').where('stripeCustomerId', '==', customerId).get();
  
    if (!userRef) {
-     console.error('User not found');
+     console.log('User not found');
      return;
    }
  

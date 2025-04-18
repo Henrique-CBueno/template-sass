@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
     } catch (error) {
 
-        console.error("Error creating portal session:", error)
+        console.log("Error creating portal session:", error)
         return new Response("Internal Server Error", { status: 500 })
         
     }

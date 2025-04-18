@@ -48,7 +48,7 @@ import { getOrCreateCustomer } from "@/app/sever/stripe/get-costumer-id";
  
      return NextResponse.json({ id: session.id }, { status: 200 })
    } catch (error) {
-    console.error("Stripe Error:", error);
+    console.log("Stripe Error:", error);
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
    }
  }
