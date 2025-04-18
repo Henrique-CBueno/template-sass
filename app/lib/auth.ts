@@ -6,6 +6,6 @@ import { firebaseCert } from "@/app/lib/firebase";
  export const { handlers, signIn, signOut, auth } = NextAuth({
    providers: [Google],
    adapter: FirestoreAdapter({
-    credential: firebaseCert,
+     credential: firebaseCert,
    }),
  })
