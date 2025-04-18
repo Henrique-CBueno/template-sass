@@ -18,7 +18,7 @@ export async function getOrCreateCustomer(userId: string, userEmail: string) {
       try {
         await stripe.customers.retrieve(stripeCustomerId);
         return stripeCustomerId;
-      } catch (err: any) {
+      } catch  {
         console.warn("Stripe customer not found, creating a new one.");
         stripeCustomerId = null; // continua o fluxo para criar um novo
       }
@@ -39,8 +39,8 @@ export async function getOrCreateCustomer(userId: string, userEmail: string) {
     });
 
     return stripeCustomer.id;
-  } catch (error) {
-    console.error(error);
+  } catch  {
+    console.log('Error getting or creating customer:');
     throw new Error('Failed to get or create customer');
   }
 }

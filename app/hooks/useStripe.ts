@@ -31,8 +31,8 @@ export function useStripe() {
        const data = await res.json();
  
        await stripe.redirectToCheckout({ sessionId: data.sessionId })
-     } catch (error) {
-       console.error(error);
+     } catch  {
+       console.log("Error creating checkout session");
      }
      }
 
@@ -51,8 +51,8 @@ export function useStripe() {
                 const data = await res.json()
         
               await stripe.redirectToCheckout({ sessionId: data.id })
-            } catch (error) {
-              console.log("erro");
+            } catch {
+              console.log("Error creating subscription checkout session")
             }
         }
         
