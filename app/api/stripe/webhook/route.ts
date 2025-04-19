@@ -1,7 +1,8 @@
-import stripe from '@/app/lib/stripe';
+
 import { handleStripeCancelSubscription } from '@/app/sever/stripe/handle-cancel';
 import { handleStripPayment } from '@/app/sever/stripe/handle-payment';
 import { handleStripeSubscription } from '@/app/sever/stripe/handle-subscription';
+import { getStripeClient } from "@/app/lib/stripe";
 
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -10,6 +11,7 @@ import { NextRequest, NextResponse } from 'next/server';
  
  export async function POST(req: NextRequest) {
    try {
+    const stripe = getStripeClient();
      const body = await req.text();
      const headersList = await headers();
      const signature = headersList.get('stripe-signature');
