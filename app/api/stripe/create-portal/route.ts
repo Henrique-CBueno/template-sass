@@ -22,13 +22,15 @@ export async function POST(req: NextRequest) {
         const userData = userDoc.data();
         const customerId = userData?.stripeCustomerId;
 
-        if (!customerId) {
-            return NextResponse.json({ error: "Customer ID not found" }, { status: 404 });
+        if (typeof customerId !== "string" || !customerId.trim()) {
+            return NextResponse.json({ error: "Invalid customer ID" }, { status: 400 });
         }
 
-        const origin = req.headers.get("origin");
-        if (!origin) {
-            return NextResponse.json({ error: "Origin header is missing" }, { status: 400 });
+        // Fallback para produção
+        const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || null;
+
+        if (!origin || typeof origin !== "string") {
+            return NextResponse.json({ error: "Origin is missing or invalid" }, { status: 400 });
         }
 
         const portalSession = await stripe.billingPortal.sessions.create({
