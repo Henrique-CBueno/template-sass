@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.error("Erro ao inicializar stripe:", error);
+    console.log("Erro ao inicializar stripe:", error, req);
     return NextResponse.json({ error: "Stripe error" }, { status: 500 });
   }
 }
