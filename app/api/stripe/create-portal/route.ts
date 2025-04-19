@@ -27,10 +27,10 @@ export async function POST(req: NextRequest) {
     }
 
     const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL;
-    if (!origin) {
-        return NextResponse.json({ error: "Origin is missing or invalid" }, { status: 400 });
-    }
-    
+
+    // 👇 Log do origin
+    console.log("Origin header:", req.headers.get("origin"));
+    console.log("Resolved origin:", origin);
 
     if (!origin || typeof origin !== "string") {
       return NextResponse.json({ error: "Origin is missing or invalid" }, { status: 400 });
@@ -48,5 +48,5 @@ export async function POST(req: NextRequest) {
     console.error("Error creating portal session:", e);
     const errorMessage = e instanceof Error ? e.message : "An unknown error occurred";
     return NextResponse.json({ error: "Internal Server Error", message: errorMessage }, { status: 500 });
-}
+  }
 }
