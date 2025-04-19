@@ -1,24 +1,15 @@
-import { db } from "@/app/lib/firebase";
- import 'server-only';
- 
- import Stripe from "stripe";
- 
- export async function handleStripeSubscription(event: Stripe.CheckoutSessionCompletedEvent) {
-   if (event.data.object.payment_status === 'paid') {
-     console.log('Pagamento realizado com sucesso. Enviar um email liberar acesso.')
- 
-     const metadata = event.data.object.metadata;
- 
-     const userId = metadata?.userId;
- 
-     if (!userId) {
-       console.log('User ID not found');
-       return;
-     }
- 
-     await db.collection('users').doc(userId).update({
-       stripeSubscriptionId: event.data.object.subscription,
-       subscriptionStatus: 'active'
-     });
-   }
- }
+import { NextRequest, NextResponse } from "next/server";
+import { getStripeClient } from "@/app/lib/stripe";
+
+export async function POST(req: NextRequest) {
+  try {
+    console.log("Antes do getStripeClient");
+    const stripe = getStripeClient();
+    console.log("Stripe inicializado:", stripe ? "sim" : "não");
+
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch (error) {
+    console.error("Erro ao inicializar stripe:", error);
+    return NextResponse.json({ error: "Stripe error" }, { status: 500 });
+  }
+}
