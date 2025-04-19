@@ -1,9 +1,10 @@
 import { db } from '@/app/lib/firebase';
-import { getStripeClient } from "@/app/lib/stripe";";
+import { getStripeClient } from "@/app/lib/stripe";
 import 'server-only';
 
 export async function getOrCreateCustomer(userId: string, userEmail: string) {
   try {
+    const stripe = getStripeClient();
     const userRef = db.collection('users').doc(userId);
     const userDoc = await userRef.get();
 

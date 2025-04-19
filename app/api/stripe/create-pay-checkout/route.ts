@@ -1,7 +1,8 @@
-import { getStripeClient } from "@/app/lib/stripe";";
-import { NextRequest, NextResponse } from "next/server";
+import { getStripeClient } from "@/app/lib/stripe"
+import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest){
+    const stripe = getStripeClient();
     const { userEmail } = await req.json()
 
     const price = process.env.STRIPE_PRODUCT_PRICE_ID
@@ -30,6 +31,6 @@ export async function POST(req: NextRequest){
         return NextResponse.json({ sessionId: session.id })
         
     } catch(e) {
-        alert(e)
+        console.log(e)
     }
 }

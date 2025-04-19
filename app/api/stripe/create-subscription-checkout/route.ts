@@ -1,10 +1,11 @@
 import { auth } from "@/app/lib/auth";
- import { getStripeClient } from "@/app/lib/stripe";";
-import { getOrCreateCustomer } from "@/app/sever/stripe/get-costumer-id";
+import { getStripeClient } from "@/app/lib/stripe";
+import { getOrCreateCustomer } from "@/app/sever/stripe/get-costumer-id"
  
  import { NextRequest, NextResponse } from "next/server";
  
  export async function POST(req: NextRequest) {
+  const stripe = getStripeClient();
    const { testeId } = await req.json()
  
    const price = process.env.STRIPE_SUBSCRIPTION_PRICE_ID
