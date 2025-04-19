@@ -26,7 +26,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid customer ID" }, { status: 400 });
     }
 
-    const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || null;
+    const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL;
+    if (!origin) {
+        return NextResponse.json({ error: "Origin is missing or invalid" }, { status: 400 });
+    }
+    
 
     if (!origin || typeof origin !== "string") {
       return NextResponse.json({ error: "Origin is missing or invalid" }, { status: 400 });
@@ -40,8 +44,9 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ url: portalSession.url }, { status: 200 });
-  } catch (error) {
-    console.error("Error creating portal session:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-  }
+  } catch (e) {
+    console.error("Error creating portal session:", e);
+    const errorMessage = e instanceof Error ? e.message : "An unknown error occurred";
+    return NextResponse.json({ error: "Internal Server Error", message: errorMessage }, { status: 500 });
+}
 }
